@@ -17,7 +17,6 @@ class RestaurantServiceTest {
         restaurant = service.addRestaurant(name, location, openingTime, closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
-
     }
 
     //>>>>>>>>>>>>>>>>>>>>>>SEARCHING<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -33,7 +32,6 @@ class RestaurantServiceTest {
     public void searching_for_non_existing_restaurant_should_throw_exception() throws restaurantNotFoundException {
         //WRITE UNIT TEST CASE HERE
         assertThrows(restaurantNotFoundException.class,()->service.findRestaurantByName("Pamela's Kitchen"));
-
     }
     //<<<<<<<<<<<<<<<<<<<<SEARCHING>>>>>>>>>>>>>>>>>>>>>>>>>>
 

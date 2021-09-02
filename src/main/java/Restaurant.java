@@ -1,6 +1,6 @@
-import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.*;
 
 public class Restaurant {
     private String name;
@@ -17,57 +17,47 @@ public class Restaurant {
     }
 
     public boolean isRestaurantOpen() {
-        if ( getCurrentTime().compareTo(openingTime)>= 0 && getCurrentTime().compareTo(closingTime)<= 0) {
-            return true;
-        }
-        return false;
+        return getCurrentTime().compareTo(openingTime) >= 0 && getCurrentTime().compareTo(closingTime) <= 0;
         //DELETE ABOVE STATEMENT AND WRITE CODE HERE
     }
 
-    public LocalTime getCurrentTime(){ return  LocalTime.now(); }
+    public LocalTime getCurrentTime(){return  LocalTime.now();}
 
-    public List<Item> getMenu() {
-        return menu;
+    public List<Item> getMenu() {return menu;}
         //DELETE ABOVE RETURN STATEMENT AND WRITE CODE HERE
-    }
 
     private Item findItemByName(String itemName){
         for(Item item: menu) {
             if(item.getItemName().equals(itemName))
                 return item;
         }
-        return null;
-    }
+        return null;}
 
     public void addToMenu(String name, int price) {
         Item newItem = new Item(name,price);
         menu.add(newItem);
     }
-    
-    public void removeFromMenu(String itemName) throws itemNotFoundException {
 
+    public void removeFromMenu(String itemName) throws itemNotFoundException {
         Item itemToBeRemoved = findItemByName(itemName);
         if (itemToBeRemoved == null)
             throw new itemNotFoundException(itemName);
+        menu.remove(itemToBeRemoved); }
 
-        menu.remove(itemToBeRemoved);
-    }
     public void displayDetails(){
         System.out.println("Restaurant:"+ name + "\n"
                 +"Location:"+ location + "\n"
                 +"Opening time:"+ openingTime +"\n"
                 +"Closing time:"+ closingTime +"\n"
-                +"Menu:"+"\n"+getMenu());
+                +"Menu:"+"\n"+ getMenu()); }
 
-    }
-
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
     public int get_total_order_price(List<String> order_list){
-
-        return 0;
+        int amount = 0;
+        for (String itemName : order_list) {
+            amount += findItemByName(itemName).getItemPrice();
+        }
+        return amount;
     }
-
 }
