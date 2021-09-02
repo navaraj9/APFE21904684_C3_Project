@@ -1,17 +1,25 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.LocalTime;
-
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.spy;
 
+@ExtendWith(MockitoExtension.class)
 class RestaurantTest {
     Restaurant restaurant;
     //REFACTOR ALL THE REPEATED LINES OF CODE
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
-    public void setupRestaurant() {
+    private void setupRestaurant() {
         String name = "Amelie's cafe";
         String location = "Chennai";
         LocalTime openingTime = LocalTime.parse("10:30:00");
@@ -69,4 +77,32 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>Order<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Test
+    public void return_order_value_for_choosen_items(){
+
+        List<String> chosenItems = new ArrayList<String>();
+        chosenItems.add("Sweet corn soup");
+        chosenItems.add("Vegetable lasagne");
+        assertEquals(388,restaurant.get_total_order_price(chosenItems));
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<Order>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>getDetails<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Test
+    public void checking_getDetails(){
+
+        restaurant.displayDetails();
+
+        assertEquals("Restaurant:Amelie's cafe\n" +
+                "Location:Chennai\n" +
+                "Opening time:10:30\n" +
+                "Closing time:22:00\n" +
+                "Menu:\n" +
+                "[Sweet corn soup:119\n" +
+                ", Vegetable lasagne:269\n" +
+                "]", outputStreamCaptor.toString().trim());
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<getDetails>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }

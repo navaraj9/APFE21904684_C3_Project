@@ -1,17 +1,15 @@
 import org.junit.jupiter.api.*;
-
 import java.time.LocalTime;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 
 class RestaurantServiceTest {
 
     RestaurantService service = new RestaurantService();
     Restaurant restaurant;
+
     //REFACTOR ALL THE REPEATED LINES OF CODE
     @BeforeEach
-    public void setupRestaurant() {
+    private void setupRestaurant() {
         String name = "Amelie's cafe";
         String location = "Chennai";
         LocalTime openingTime = LocalTime.parse("10:30:00");

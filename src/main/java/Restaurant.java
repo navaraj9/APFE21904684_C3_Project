@@ -1,4 +1,4 @@
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class Restaurant {
 
     private Item findItemByName(String itemName){
         for(Item item: menu) {
-            if(item.getName().equals(itemName))
+            if(item.getItemName().equals(itemName))
                 return item;
         }
         return null;
@@ -63,6 +63,11 @@ public class Restaurant {
 
     public String getName() {
         return name;
+    }
+
+    public int get_total_order_price(List<String> order_list){
+
+        return 0;
     }
 
 }
